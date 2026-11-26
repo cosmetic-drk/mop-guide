@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Путеводитель МОП магазина ДРК</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#394fd9; --blue-dark:#2636a7; --blue-soft:#edf0ff; --berry:#e94f87; --berry-soft:#ffe8f0;
+  --ink:#182340; --muted:#68718a; --line:#e3e7f2; --surface:#f7f8fc; --bg:#fff; --card:#fff;
+  --green:#1e7c85; --green-soft:#e2f3f2; --amber:#9a6200; --amber-soft:#fff3d6;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --blue:#8492ff; --blue-dark:#a5afff; --blue-soft:#232a52; --berry:#ff7aa8; --berry-soft:#3d2030;
+    --ink:#eef0f8; --muted:#a3aac0; --line:#2c3350; --surface:#0f1324; --bg:#0d1020; --card:#171c33;
+    --green:#6fd0d6; --green-soft:#183538; --amber:#f2c063; --amber-soft:#3a2f17;
+  }
+}
+:root[data-theme="dark"]{
+  --blue:#8492ff; --blue-dark:#a5afff; --blue-soft:#232a52; --berry:#ff7aa8; --berry-soft:#3d2030;
+  --ink:#eef0f8; --muted:#a3aac0; --line:#2c3350; --surface:#0f1324; --bg:#0d1020; --card:#171c33;
+  --green:#6fd0d6; --green-soft:#183538; --amber:#f2c063; --amber-soft:#3a2f17;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--surface);color:var(--ink);font:400 15px/1.5 Inter,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:8px}
+.in{width:min(1080px,calc(100% - 40px));margin:0 auto}
+
+header{background:var(--bg);border-bottom:1px solid var(--line)}
+header .in{padding:28px 0 26px}
+.kicker{color:var(--blue);font-size:13px;font-weight:600;letter-spacing:.06em}
+h1{margin:8px 0 8px;font-size:clamp(26px,3.4vw,38px);line-height:1.1;letter-spacing:-.03em}
+.lead{margin:0;color:var(--muted);max-width:640px}
+
+.bar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.bar .in{padding:14px 0 12px}
+.search{position:relative;display:block}
+.search input{width:100%;height:46px;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:0 14px 0 42px;font-size:16px;outline:none}
+.search input:focus{border-color:#9aa5ea;box-shadow:0 0 0 3px rgba(57,79,217,.12)}
+.search svg{position:absolute;left:14px;top:14px;width:18px;height:18px;fill:none;stroke:var(--muted);stroke-width:1.8}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-top:10px;scrollbar-width:thin}
+.chip{flex:0 0 auto;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 13px;font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap}
+.chip small{color:var(--muted);margin-left:4px}
+.chip[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.chip[aria-pressed="true"] small{color:rgba(255,255,255,.8)}
+
+main{padding:8px 0 64px}
+section{margin-top:22px}
+section h2{display:flex;align-items:center;gap:8px;margin:0 0 8px;font-size:16px;letter-spacing:-.01em}
+section h2 span{font-size:13px;color:var(--muted);font-weight:500}
+.grid{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.item{display:flex;gap:12px;align-items:center;padding:10px 12px 10px 14px;border-top:1px solid var(--line);transition:background .12s}
+.item:first-child{border-top:0}
+.item:hover{background:var(--surface)}
+.ico{flex:0 0 32px;height:32px;border-radius:8px;display:grid;place-items:center;font-size:10px;font-weight:700;letter-spacing:.02em}
+.t-sheet{background:var(--green-soft);color:var(--green)}
+.t-doc{background:var(--blue-soft);color:var(--blue)}
+.t-folder{background:var(--amber-soft);color:var(--amber)}
+.t-form{background:var(--berry-soft);color:#b23a68}
+.t-site{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+.body{flex:1;min-width:0}
+.title{display:inline;font-weight:600;font-size:14px;line-height:1.3}
+.title:hover{color:var(--blue);text-decoration:underline}
+.desc{margin:1px 0 0;color:var(--muted);font-size:12.5px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meta{display:none}
+.badge{font-size:11px;font-weight:500;color:var(--muted);margin-left:6px}
+.creds{margin-top:6px;font-size:12.5px;display:flex;flex-wrap:wrap;gap:6px 14px}
+.creds div{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.creds code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
+.acts{display:flex;flex-direction:row;gap:4px;flex:0 0 auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:30px;padding:0 10px;border-radius:8px;border:0;cursor:pointer;font-size:12.5px;font-weight:600;white-space:nowrap}
+.btn-open{background:var(--blue);color:#fff}
+.btn-open:hover{background:var(--blue-dark)}
+.btn-copy{background:var(--blue-soft);color:var(--blue)}
+.btn-mini{height:26px;padding:0 9px;font-size:12px;border-radius:7px;background:var(--blue-soft);color:var(--blue);border:0;cursor:pointer;font-weight:600}
+.empty{text-align:center;color:var(--muted);padding:60px 0}
+footer{color:var(--muted);font-size:13px;padding:0 0 40px}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#182340;color:#fff;padding:10px 16px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:50}
+.toast.on{opacity:1}
+@media (max-width:760px){
+  .desc{white-space:normal}
+  .acts .btn-copy{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.sales{margin-top:18px}
+.sales-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.sales-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 16px;margin-bottom:12px}
+.sales-head h2{margin:0;font-size:17px;letter-spacing:-.01em}
+.sales-head span{color:var(--muted);font-size:13px}
+.sales-head a{color:var(--blue);font-size:13px;font-weight:600;text-decoration:none}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.kpi{background:var(--surface);border-radius:12px;padding:10px 12px}
+.kpi small{display:block;color:var(--muted);font-size:12px}
+.kpi b{display:block;font-size:20px;letter-spacing:-.02em;margin-top:2px}
+.kpi.good b{color:#1e7c55}.kpi.warn b{color:#b23a3a}
+.catrows{display:grid;gap:10px}
+.catrow{display:grid;grid-template-columns:minmax(150px,1.2fr) 2.4fr minmax(110px,.9fr);gap:12px;align-items:center;font-size:13px}
+.catrow .nm b{display:block;font-size:14px}.catrow .nm span{color:var(--muted);font-size:12px}
+.prog{height:10px;border-radius:999px;background:var(--surface);border:1px solid var(--line);overflow:hidden}
+.prog i{display:block;height:100%;border-radius:999px;background:var(--blue)}
+.prog-l{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-top:4px}
+.catrow .rest{text-align:right}.catrow .rest b{display:block;font-size:14px}.catrow .rest span{color:var(--muted);font-size:12px}
+.tabs{display:flex;gap:6px;margin-bottom:10px}
+.tab{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:8px 14px;font-size:14px;font-weight:600;cursor:pointer;color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.sup{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.sup-row{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) 220px;text-align:left;gap:12px;align-items:center;padding:10px 14px;border-top:1px solid var(--line);font-size:14px}
+.sup-row:first-child{border-top:0}
+.sup-row.hd{background:var(--surface);font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.sup-row .n b{font-weight:600}.sup-row .br{color:var(--muted);font-size:12.5px}
+.pay{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;font-size:12.5px;font-weight:600;white-space:nowrap}
+.p-kom{background:#edf0ff;color:#2636a7}.p-sale{background:#e2f3ea;color:#1e7c55}.p-inv{background:#fff3d6;color:#8a5a00}.p-pre{background:#ffe8f0;color:#a33862}.p-cash{background:#f1efe8;color:#5f5e5a}.p-upd{background:#e1f5ee;color:#0f6e56}
+@media (max-width:760px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.catrow{grid-template-columns:1fr}.catrow .rest{text-align:left}.sup-row{grid-template-columns:1fr}.sup-row.hd{display:none}}
+
+.bonus-card{margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.bonus-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 14px;margin-bottom:10px}
+.bonus-head h2{margin:0;font-size:17px}.bonus-head span{color:var(--muted);font-size:13px}
+.bonus-total{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+.bt{flex:1 1 160px;border-radius:12px;padding:10px 12px;background:var(--surface)}
+.bt small{display:block;color:var(--muted);font-size:12px}.bt b{display:block;font-size:22px;letter-spacing:-.02em;margin-top:2px}
+.bt.main{background:#e2f3ea}.bt.main b{color:#1e7c55}
+.brow{display:grid;grid-template-columns:minmax(120px,1fr) 110px minmax(160px,1.6fr) 90px;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line);font-size:13px}
+.brow:first-of-type{border-top:0}
+.brow b{font-size:14px}.brow .muted{color:var(--muted);font-size:12px}
+.brow input{width:76px;height:32px;border:1px solid var(--line);border-radius:8px;padding:0 8px;font:600 14px Inter,Arial,sans-serif;background:var(--card);color:var(--ink);text-align:right}
+.brow .sum{text-align:right;font-weight:700;font-size:15px}
+.steps{display:flex;gap:3px;margin-bottom:3px}.steps i{flex:1;height:6px;border-radius:3px;background:var(--line)}.steps i.on{background:#1e7c55}
+.bonus-foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;margin-top:10px;color:var(--muted);font-size:12px}
+.bonus-foot button{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:6px 10px;font-size:12px;font-weight:600;cursor:pointer;color:var(--ink)}
+@media (max-width:760px){.brow{grid-template-columns:1fr 90px}.brow .sum{text-align:left}}
+</style>
+</head>
+<body>
+<header>
+  <div class="in">
+    <div class="kicker">МАГАЗИН ИНСТИТУТА ДРК</div>
+    <h1>Путеводитель менеджера магазина</h1>
+    <p class="lead">Все рабочие ссылки в одном месте: графики, скрипты, партнёры, клиенты и обучение. Найдите нужное через поиск или по разделам.</p>
+  </div>
+</header>
+<section class="in sales" aria-label="Продажи магазина"><div class="sales-card" id="sales"></div><div class="bonus-card" id="bonus"></div></section>
+
+<div class="bar">
+  <div class="in">
+    <div class="tabs" role="tablist"><button class="tab" role="tab" data-tab="links" aria-selected="true">Ссылки</button><button class="tab" role="tab" data-tab="sup" aria-selected="false">Поставщики и тип расчёта</button></div>
+    <label class="search"><span style="position:absolute;left:-9999px">Поиск</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
+      <input id="q" type="search" placeholder="Например: скрипт, график, Эгиа, кешбэк" autocomplete="off">
+    </label>
+    <div class="chips" id="chips" role="group" aria-label="Разделы"></div>
+  </div>
+</div>
+
+<main class="in" id="list"></main>
+<footer class="in">Источник: таблица «Путеводитель МОП магазина». Чтобы добавить ссылку, напишите, какую и в какой раздел.</footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const SECTIONS = [
+  { id: 'daily', name: 'Сайт и каталоги' },
+  { id: 'schedule', name: 'Графики, планы и отчёты' },
+  { id: 'scripts', name: 'Скрипты и тексты' },
+  { id: 'clients', name: 'Клиенты и кешбэк' },
+  { id: 'partners', name: 'Партнёры и документы' },
+  { id: 'learn', name: 'Обучение' }
+];
+const TYPE = { sheet: ['Таблица', 'XLS', 't-sheet'], doc: ['Документ', 'DOC', 't-doc'], folder: ['Папка', 'DIR', 't-folder'], form: ['Форма', 'FORM', 't-form'], site: ['Сайт', 'WEB', 't-site'] };
+const LINKS = [
+  { s: 'daily', t: 'site', name: 'Официальный сайт магазина', desc: 'Интернет-магазин: каталог, цены, оформление заказов.', url: 'https://shop.cosmeticru.com/?roistat_visit=5284880' },
+  { s: 'daily', t: 'site', name: 'Страница брендов для внутреннего пользования и рассылок', desc: 'Лендинг с брендами, каталогом, протоколами и 100% кешбэком. Ссылку можно отправлять клиентам.', url: 'https://cosmeticdrk.github.io/shop-brands/' },
+  { s: 'daily', t: 'folder', name: 'Каталоги партнёров (прайс)', desc: 'Прайсы, каталоги и презентации брендов.', url: 'https://drive.google.com/drive/folders/1v0xm4mqhtZXRcNllUqncNrFwkqBhHdiz' },
+  { s: 'daily', t: 'sheet', name: 'Продуктовая матрица по брендам', desc: 'Ассортимент каждого бренда на отдельном листе: артикулы, объёмы, цены для косметолога и РРЦ, описания и протоколы.', url: 'https://docs.google.com/spreadsheets/d/1OIMDoq9QCorj5_1O8V0XyEL_wTKlv-PlOaB9UNgJyaw/edit' },
+
+  { s: 'schedule', t: 'sheet', name: 'График работы клиентского сервиса', desc: 'Смены и график сотрудников клиентского сервиса ДРК.', url: 'https://drive.google.com/file/d/1fvUfjg5z16l0wqV2Z5bMDsSciZwQMTaV/view' },
+  { s: 'schedule', t: 'sheet', name: 'График магазина', desc: 'Рабочий график магазина.', url: 'https://docs.google.com/spreadsheets/d/1eJfHc-Y7_9KHWS4WFlJkl1Vi4mpnCUTs/edit?gid=465349496#gid=465349496' },
+  { s: 'schedule', t: 'sheet', name: 'План коммуникации', desc: 'План рассылок, публикаций и контактов с клиентами.', url: 'https://docs.google.com/spreadsheets/d/1RvOX3MFxVWFlhGPIfrXQplKEv8olmEdAXAe8R-SCbqE/edit?gid=0#gid=0' },
+  { s: 'schedule', t: 'sheet', name: 'Аналитика и отчёты магазина', desc: 'План продаж по трём категориям брендов, сводные отчёты за недели, итоги месяцев, выручка по брендам и менеджерам, модель мотивации.', url: 'https://docs.google.com/spreadsheets/d/1PSIsbwA6X3WthI5kqqPNSvK6h_6TGlStsL_RtggLekw/edit' },
+  { s: 'schedule', t: 'sheet', name: 'Dashboard 2025: ключевые индикаторы', desc: 'План/факт продаж по первичке и вторичке, новые лиды и лиды в работе, конверсии и цикл сделки в сравнении с бенчмарком.', url: 'https://docs.google.com/spreadsheets/d/1ly6byH2wu2H1E2L_3FoAvwJdG0_U9PL5hGWtxoobXAc/edit?gid=149695958#gid=149695958' },
+
+  { s: 'scripts', t: 'doc', name: 'Скрипт для презентации на мероприятиях', desc: 'Что говорить о магазине и брендах на мероприятиях института.', url: 'https://docs.google.com/document/d/1giy-hM-WiARDvWETvRVZ-M3a1heqpCLOOiHUDda0Kq8/edit?tab=t.0' },
+  { s: 'scripts', t: 'doc', name: 'Скрипт по активации бонусов', desc: 'Как рассказать клиенту о бонусах и помочь их использовать.', url: 'https://docs.google.com/document/d/1wAFAEWlb8oOr0-l0p14B09Js4VEmZpsgHNQ9-oaygFk/edit?tab=t.0#heading=h.fltsdp54myox' },
+  { s: 'scripts', t: 'doc', name: 'Скрипт по реанимации клиентов Эгиа', desc: 'Разговор с клиентами, которые перестали покупать EGIA.', url: 'https://docs.google.com/document/d/1UKwD5e9pkleZA21a6V72asSbBKzbjz_0bR3UUiO4pb8/edit' },
+  { s: 'scripts', t: 'doc', name: 'Тексты для рассылки по ушедшим клиентам', desc: 'Шаблоны сообщений про новые бренды и кешбэк.', url: 'https://docs.google.com/document/d/1Rmt1uAbyUOP1_zocp5TJI_ou5C3VikC5xWQ-njT7QFA/edit' },
+
+  { s: 'clients', t: 'form', name: 'Google-форма для внесения кешбэка клиентов', desc: 'Внесите ФИО, телефон, сумму и дату покупки клиента.', url: 'https://docs.google.com/forms/d/e/1FAIpQLSdY_BxsgwOzvEXtuQ1ZUoXdAG2bHmjlAjnXN-2Zd3udnGucvg/viewform' },
+  { s: 'clients', t: 'sheet', name: 'Анализ ушедших клиентов, январь–сентябрь 2026', desc: 'Кто перестал покупать, кто снизил покупки, какие бренды бросили.', url: 'https://docs.google.com/spreadsheets/d/1SIu1o9RpJRCps3cumE9o0QVyyvu1BOegqVKeU_hm9rQ/edit' },
+  { s: 'clients', t: 'sheet', name: 'Таблица ушедших клиентов Эгиа', desc: 'Список клиентов EGIA для обзвона и отметок о результатах.', url: 'https://docs.google.com/spreadsheets/d/14vGqk84EJy5JmcV8k6AnktU9XCYiTujkTxmD5eCDOys/edit' },
+  { s: 'clients', t: 'sheet', name: 'Анализ работы магазина 2025/2026', desc: 'Показатели и итоги работы магазина.', url: 'https://docs.google.com/spreadsheets/d/1-8V9CYuudfKunPtemLBb54tdMeSk93VKE10fA7F0izs/edit?gid=1479428754#gid=1479428754' },
+
+  { s: 'partners', t: 'sheet', name: 'Таблица партнёров', desc: 'Список поставщиков и брендов с контактами.', url: 'https://docs.google.com/spreadsheets/d/1ul3mjsCnT5feeCsvQ2Hm-x-bL6gTpg0Xd20G9Qt_m20/edit?gid=0#gid=0' },
+  { s: 'partners', t: 'sheet', name: 'Условия по партнёрам', desc: 'Условия работы, скидки и порядок расчётов с партнёрами.', url: 'https://docs.google.com/spreadsheets/d/185T3XGsk2hWrOrB-YAKEqfHgGt611HHRF5DCRwxPrc0/edit?gid=0#gid=0' },
+  { s: 'partners', t: 'folder', name: 'Договоры (сканы)', desc: 'Сканы договоров с партнёрами.', url: 'https://drive.google.com/drive/folders/1o2kyATZEwOs7Cb6gQOoqKkOzHaVsasuk' },
+  { s: 'partners', t: 'sheet', name: 'График погашения задолженности', desc: 'График погашения долга АНО ДПО.', url: 'https://docs.google.com/spreadsheets/d/17MZ1EtBou_91CI-qOI8tCvkja0q4cCXB9PunXgiWA9I/edit' },
+  { s: 'partners', t: 'sheet', name: 'Учёт ботулотоксинов', desc: 'Продажи ботулотоксинов: дашборд по месяцам и менеджерам, журнал продаж, неоплаченные.', url: 'https://docs.google.com/spreadsheets/d/135E_WHK20AXpLtQaTH_JzHl3BoNlzBbQfNBRRLdkRZw/edit?gid=1266575229#gid=1266575229' },
+
+  { s: 'learn', t: 'site', name: 'Обучение от Доктор Кадир', desc: 'Онлайн-курс по продукции DR.KADIR на платформе Skillspace. Логин и пароль — у руководителя магазина.', url: 'https://lantanagroup.skillspace.ru/stream/69ca73e478e40008bd387d6c' }
+];
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const norm = s => String(s || '').toLowerCase().replace(/ё/g, 'е');
+LINKS.forEach((l, i) => { l.id = i; l.hay = norm([l.name, l.desc, TYPE[l.t][0], SECTIONS.find(s => s.id === l.s).name].join(' ')); });
+const state = { s: '', q: '', tab: 'links', p: '' };
+
+
+const SALES = {"period": "01.11.2026 – 22.11.2026", "month": "ноябрь 2026", "left": "23.11–30.11 (8 дней)", "rows": [["1 категория", "ONMACABIM, APPLEPEEL и др.", 122976, 155000, 79.34, 32024, 4003], ["2 категория", "EGIA, COLLAGENE 3D и др.", 559044.5, 685000, 81.61, 125955.5, 15745], ["3 категория", "Все остальные", 1343948, 2073542, 64.81, 729594, 91199]], "total": ["ИТОГО", "", 2025968.5, 2913542, 69.53, 887573.5, 110947], "src": "https://docs.google.com/spreadsheets/d/1PSIsbwA6X3WthI5kqqPNSvK6h_6TGlStsL_RtggLekw/edit?gid=2147020843#gid=2147020843"};
+const SUPPLIERS = [["АО \"Чистовье\"", "по счету", "PARAMED"], ["ИП Дворниченко Галина Владимировна", "по отчету комиссионера", "COLIBRIDERM; PEACH PEEL; LASER DOCTOR"], ["ИП Клепикова Наталья Сергеевна", "по отчету комиссионера", "EVOLUTION"], ["ИП Лушников Владимир Юрьевич", "по отчету продаж", "COLLAGENE 3D"], ["ИП Прокуратов Иван Иванович", "по отчету комиссионера", "APPLEPEEL"], ["ИП Самсонова Олеся Сергеевна", "по счету", "BIELENDA"], ["ИП Третьякова Алина Александровна", "оплата наличными", "MP SYSTEMS"], ["ИП Челпанова Елена Анатольевна", "оплата наличными", "PHYTO-C"], ["ООО \"Альпика\"", "по отчету комиссионера", "ALPIKA"], ["ООО \"Аурин\"", "оплата наличными", "SKINTELLECTUAL SOLUTIONS"], ["ООО \"Бон-Л Групп\"", "по УПД", "WENDI"], ["ООО \"Виваси Лаборатуар\"", "оплата наличными", "STYLAGE"], ["ООО \"Вита Эстетик\"", "по предоплате", "VITA ESTETIC"], ["ООО \"Гекко-Косметиксрус\"", "по отчету комиссионера", "GECKO"], ["ООО \"ГК Эсэл Бьюти\"", "по отчету комиссионера", "PERFOTESORO"], ["ООО \"Грок\"", "по отчету продаж", "DR.KADIR"], ["ООО \"Дистрибьюторский центр косметики\"", "по отчету продаж", "ARKANA"], ["ООО \"Ив Бьюти\"", "по отчету комиссионера", "RONAS"], ["ООО \"Косметология Плюс\"", "по предоплате", "REFALTIS; D-NUCLEO; SOPRANO; SIMILDIET"], ["ООО \"Космопрофи\"", "по счету", "GIGI"], ["ООО \"Мезофарм\"", "по счету", "MESOPHARM"], ["ООО \"НПП Биогенезис\"", "по отчету комиссионера", "HYAMATRIX"], ["ООО \"Омкосметика\"", "по отчету комиссионера", "ONMACABIM"], ["ООО \"Органикалибра\"", "по отчету продаж", "SOMELOVE"], ["ООО \"Приматерра\"", "по отчету комиссионера", "PRIMATERRA"], ["ООО \"Революшн Био\"", "по отчету комиссионера", "JEUDERM"], ["ООО \"Сесдерма Рус\"", "по предоплате", "SESDERMA"], ["ООО \"Сиэлэс Интернешнл\"", "по предоплате", "REVI"], ["ООО \"Топмедгрупп\"", "оплата наличными", "REVI"], ["ООО \"Топмедфарм\"", "оплата наличными", "REVI"], ["ООО \"Триум Трейд\"", "оплата наличными", "VITA ESTETIC"], ["ООО \"УЦК \"Аравия\"", "оплата наличными", "ARAVIA"], ["ООО \"Фармацевтикал Косметик\"", "по счету", "MYBIOGEN; MAD"], ["ООО \"Эгиа\"", "по отчету комиссионера", "EGIA"], ["ООО \"Эстель Центр\"", "по отчету комиссионера", "GENEVIE"], ["ООО \"Эстет Лаб\"", "по счету", "MASTELLI"], ["ООО \"Эстетик РА\"", "по счету", "MARTINEX"], ["ООО \"Эстэком\"", "по предоплате", "ANGIOPHARM"], ["ООО ТД \"Аркадия\"", "по УПД", "ARKADIA"], ["ООО ТД \"Финистер\"", "по УПД", "FINISTERE"], ["Сикорская Светлана Всеволодовна", "по отчету комиссионера", "УЧЕБНЫЕ ПОСОБИЯ"], ["ООО \"Дигрей Эстейт Технолоджи\"", "по счету", "FUSION"]];
+const rub = n => Math.round(n).toLocaleString('ru-RU') + ' ₽';
+
+const SALES_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSRJBjTvZEvDw5zwwq8PgVsGOq_DG5Ipjre332aqZv-zzD89nX77Wk2yJgU8rb-SLOjvGDgDSZxnLBB/pub?gid=2147020843&single=true&output=csv';
+function parseCSV(text) {
+  const rows = []; let row = [], cell = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (q) { if (ch === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; } else cell += ch; }
+    else if (ch === '"') q = true;
+    else if (ch === ',') { row.push(cell); cell = ''; }
+    else if (ch === '\n' || ch === '\r') { if (ch === '\r' && text[i + 1] === '\n') i++; row.push(cell); rows.push(row); row = []; cell = ''; }
+    else cell += ch;
+  }
+  if (cell || row.length) { row.push(cell); rows.push(row); }
+  return rows;
+}
+const toNum = s => { const v = parseFloat(String(s || '').replace(/[~\s\u00a0₽руб.%]/g, '').replace(',', '.')); return isFinite(v) ? v : 0; };
+async function loadSales() {
+  try {
+    const ctrl = new AbortController(); const tm = setTimeout(() => ctrl.abort(), 10000);
+    const res = await fetch(SALES_CSV, { cache: 'no-store', signal: ctrl.signal }); clearTimeout(tm);
+    if (!res.ok) throw new Error(res.status);
+    const text = await res.text(); const rows = parseCSV(text);
+    const pick = name => rows.find(r => (r[0] || '').trim().toLowerCase() === name);
+    const mk = r => [r[0].trim(), (r[1] || '').trim(), toNum(r[2]), toNum(r[3]), toNum(r[4]), toNum(r[5]), toNum(r[9])];
+    const cats = ['1 категория', '2 категория', '3 категория'].map(pick);
+    const tot = pick('итого');
+    if (cats.some(x => !x) || !tot) throw new Error('format');
+    const s = { ...SALES, rows: cats.map(mk), total: mk(tot), live: true };
+    const hdr = rows.find(r => (r[0] || '').trim() === 'Категория');
+    if (hdr && hdr[10]) { const m = hdr[10].match(/\(([^)]+)\)/); const d = hdr[10].match(/(\d+)\s*дн/); if (m) s.left = m[1] + (d ? ` (${d[1]} дн.)` : ''); }
+    const dm = text.match(/по файлу на (\d{1,2}\.\d{1,2})/); if (dm) s.period = 'по данным на ' + dm[1];
+    const mm = text.match(/плана на ([а-яё]+)/i); if (mm) s.month = mm[1].toLowerCase();
+    s.stamp = new Date().toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+    Object.assign(SALES, s); renderSales();
+  } catch (e) { SALES.live = false; renderSales(); }
+}
+
+/* Мотивация менеджеров: лист «Примерная модель мотивации» (KPI по категориям). */
+const BONUS = {
+  salary: 60000,
+  steps: [80, 90, 100, 110, 120, 130],
+  cats: [
+    { name: '1 категория · новые бренды', pay: [10000, 15000, 20000, 22000, 24000, 26000] },
+    { name: '2 категория · патронажные', pay: [7000, 11000, 15000, 19000, 23000, 27000] },
+    { name: '3 категория · прочие', pay: [3000, 5000, 8000, 11000, 14000, 17000] }
+  ],
+  extra: [[130, 15000], [120, 10000], [110, 5000]]
+};
+let bonusPct = null; // ручной ввод «что если»
+function stepIdx(p) { let k = -1; BONUS.steps.forEach((s, i) => { if (p >= s) k = i; }); return k; }
+function renderBonus() {
+  const el = $('#bonus'); if (!el) return;
+  const live = SALES.rows.map(r => r[4]);
+  const pcts = bonusPct || live.slice();
+  const totPlan = SALES.rows.reduce((a, r) => a + r[3], 0);
+  const totFact = SALES.rows.reduce((a, r, i) => a + (bonusPct ? r[3] * pcts[i] / 100 : r[2]), 0);
+  const totPct = bonusPct ? totFact / totPlan * 100 : SALES.total[4];
+  let sum = 0;
+  const rows = BONUS.cats.map((c, i) => {
+    const p = pcts[i] || 0, k = stepIdx(p), pay = k >= 0 ? c.pay[k] : 0; sum += pay;
+    const r = SALES.rows[i]; let hint;
+    if (k < BONUS.steps.length - 1) {
+      const next = BONUS.steps[k + 1], need = Math.max(0, r[3] * next / 100 - r[3] * p / 100);
+      hint = `до ${next}% (+${rub(c.pay[k + 1] - pay)}) осталось продать ${rub(need)}`;
+    } else hint = 'максимальная ступень';
+    return `<div class="brow"><div><b>${esc(c.name)}</b><div class="muted">${k >= 0 ? 'ступень ' + BONUS.steps[k] + '%' : 'меньше 80% — без премии'}</div></div>
+      <div><input type="number" min="0" max="300" step="0.1" data-bp="${i}" value="${p.toFixed(1)}" aria-label="Процент выполнения, ${esc(c.name)}">&nbsp;%</div>
+      <div><div class="steps">${BONUS.steps.map((s, j) => `<i class="${j <= k ? 'on' : ''}"></i>`).join('')}</div><div class="muted">${hint}</div></div>
+      <div class="sum">${rub(pay)}</div></div>`;
+  }).join('');
+  const ex = BONUS.extra.find(e => totPct >= e[0]); const extra = ex ? ex[1] : 0; sum += extra;
+  const nextEx = [...BONUS.extra].reverse().find(e => totPct < e[0]);
+  el.innerHTML = `<div class="bonus-head"><div><h2>Калькулятор премии менеджера</h2><span>${bonusPct ? 'Свой расчёт «что если»' : 'По текущим продажам'} · модель «Примерная модель мотивации»</span></div></div>
+    <div class="bonus-total">
+      <div class="bt main"><small>Премия</small><b>${rub(sum)}</b></div>
+      <div class="bt"><small>Оклад + премия</small><b>${rub(BONUS.salary + sum)}</b></div>
+      <div class="bt"><small>Общий план магазина</small><b>${totPct.toFixed(1).replace('.', ',')}%</b><small>${extra ? 'бонус всем +' + rub(extra) : (nextEx ? 'при ' + nextEx[0] + '% — бонус +' + rub(nextEx[1]) : '')}</small></div>
+    </div>
+    ${rows}
+    <div class="bonus-foot"><span>Ступени: 80 / 90 / 100 / 110 / 120 / 130%. Ниже 80% премия по категории не начисляется. Общий план ≥110% — +5 000 ₽, ≥120% — +10 000 ₽, ≥130% — +15 000 ₽ каждому.</span>${bonusPct ? '<button type="button" id="bonus-reset">Вернуть текущие цифры</button>' : '<span>Поменяйте % в полях, чтобы посчитать свой вариант.</span>'}</div>`;
+}
+document.addEventListener('input', e => {
+  const t = e.target; if (!t.dataset || t.dataset.bp === undefined) return;
+  bonusPct = bonusPct || SALES.rows.map(r => r[4]);
+  bonusPct[+t.dataset.bp] = parseFloat(String(t.value).replace(',', '.')) || 0;
+  const pos = t.dataset.bp; renderBonus();
+  const again = document.querySelector(`[data-bp="${pos}"]`); if (again) { again.focus(); const v = again.value; again.value = ''; again.value = v; }
+});
+document.addEventListener('click', e => { if (e.target && e.target.id === 'bonus-reset') { bonusPct = null; renderBonus(); } });
+function renderSales() {
+  const s = SALES, t = s.total, pct = v => v.toFixed(2).replace('.', ',') + '%';
+  const bar = (p) => `<div class="prog"><i style="width:${Math.min(p,100)}%;background:${p >= 100 ? '#1e7c55' : p >= 70 ? 'var(--blue)' : '#e94f87'}"></i></div>`;
+  $('#sales').innerHTML = `<div class="sales-head"><div><h2>Продажи магазина, ${esc(s.month)}</h2><span>${s.period.startsWith('по данным') ? esc(s.period) : 'Данные за ' + esc(s.period)} · остаток месяца: ${esc(s.left)} · ${s.live ? 'обновлено из таблицы ' + esc(s.stamp) : (s.live === false ? 'нет связи с таблицей, показаны сохранённые данные' : 'загрузка…')}</span></div><a href="${esc(s.src)}" target="_blank" rel="noopener">Открыть отчёт →</a></div>
+    <div class="kpis">
+      <div class="kpi"><small>Выручка</small><b>${rub(t[2])}</b></div>
+      <div class="kpi"><small>План на месяц</small><b>${rub(t[3])}</b></div>
+      <div class="kpi ${t[4] >= 100 ? 'good' : ''}"><small>Выполнение</small><b>${pct(t[4])}</b></div>
+      <div class="kpi warn"><small>Осталось продать</small><b>${rub(t[5])}</b><small>≈ ${rub(t[6])} в день</small></div>
+    </div>
+    <div class="catrows">${s.rows.map(r => `<div class="catrow"><div class="nm"><b>${esc(r[0])}</b><span>${esc(r[1])}</span></div><div>${bar(r[4])}<div class="prog-l"><span>${rub(r[2])} из ${rub(r[3])}</span><span>${pct(r[4])}</span></div></div><div class="rest"><b>${rub(r[5])}</b><span>осталось · ≈ ${rub(r[6])}/день</span></div></div>`).join('')}</div>`;
+  renderBonus();
+}
+const PAYCLS = t => /комиссион/.test(t) ? 'p-kom' : /отчету продаж/.test(t) ? 'p-sale' : /счет/.test(t) ? 'p-inv' : /предоплат/.test(t) ? 'p-pre' : /налич/.test(t) ? 'p-cash' : /УПД/.test(t) ? 'p-upd' : '';
+SUPPLIERS.forEach(s => s.hay = norm(s.join(' ')));
+function renderSup() {
+  const terms = norm(state.q).split(/\s+/).filter(Boolean);
+  const base = SUPPLIERS.filter(s => terms.every(t => s.hay.includes(t)));
+  const types = [...new Set(SUPPLIERS.map(s => s[1]))];
+  const cnt = {}; base.forEach(s => cnt[s[1]] = (cnt[s[1]] || 0) + 1);
+  $('#chips').innerHTML = `<button class="chip" data-p="" aria-pressed="${!state.p}">Все<small>${base.length}</small></button>` +
+    types.filter(t => cnt[t]).map(t => `<button class="chip" data-p="${esc(t)}" aria-pressed="${state.p === t}">${esc(t)}<small>${cnt[t]}</small></button>`).join('');
+  const list = base.filter(s => !state.p || s[1] === state.p).sort((a, b) => a[0].replace(/^(ООО|ИП|АО)\s+(ТД\s+)?["«]?/, '').localeCompare(b[0].replace(/^(ООО|ИП|АО)\s+(ТД\s+)?["«]?/, ''), 'ru'));
+  if (!list.length) { $('#list').innerHTML = '<p class="empty">Ничего не нашлось. Попробуйте название поставщика или бренда.</p>'; return; }
+  $('#list').innerHTML = `<section><h2>Поставщики и тип расчёта<span>${list.length}</span></h2><div class="sup"><div class="sup-row hd"><div>Поставщик</div><div>Бренды</div><div>Тип расчёта</div></div>${list.map(s => `<div class="sup-row"><div class="n"><b>${esc(s[0])}</b></div><div class="br">${esc(s[2])}</div><div><span class="pay ${PAYCLS(s[1])}">${esc(s[1])}</span></div></div>`).join('')}</div></section>`;
+}
+function render() {
+  if (state.tab === 'sup') { renderSup(); return; }
+  const terms = norm(state.q).split(/\s+/).filter(Boolean);
+  const base = LINKS.filter(l => terms.every(t => l.hay.includes(t)));
+  const cnt = {}; base.forEach(l => cnt[l.s] = (cnt[l.s] || 0) + 1);
+  $('#chips').innerHTML = `<button class="chip" data-s="" aria-pressed="${!state.s}">Все<small>${base.length}</small></button>` +
+    SECTIONS.filter(s => cnt[s.id]).map(s => `<button class="chip" data-s="${s.id}" aria-pressed="${state.s === s.id}">${s.name}<small>${cnt[s.id]}</small></button>`).join('');
+  const list = base.filter(l => !state.s || l.s === state.s);
+  if (!list.length) { $('#list').innerHTML = '<p class="empty">Ничего не нашлось. Попробуйте другое слово.</p>'; return; }
+  $('#list').innerHTML = SECTIONS.map(sec => {
+    const items = list.filter(l => l.s === sec.id);
+    if (!items.length) return '';
+    return `<section><h2>${sec.name}<span>${items.length}</span></h2><div class="grid">${items.map(card).join('')}</div></section>`;
+  }).join('');
+}
+function card(l) {
+  const [tn, tc, cls] = TYPE[l.t];
+  const creds = l.login ? `<div class="creds">
+      <div>Логин: <code>${esc(l.login)}</code><button class="btn-mini" data-copytext="${esc(l.login)}">Копировать</button></div>
+      <div>Пароль: <code data-pass="${l.id}">••••••••</code><button class="btn-mini" data-show="${l.id}">Показать</button><button class="btn-mini" data-copytext="${esc(l.pass)}">Копировать</button></div>
+    </div>` : '';
+  return `<article class="item">
+    <span class="ico ${cls}" aria-hidden="true">${tc}</span>
+    <div class="body">
+      <a class="title" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.name)}</a><span class="badge">${tn}</span>
+      <p class="desc" title="${esc(l.desc)}">${esc(l.desc)}</p>
+      ${creds}
+    </div>
+    <div class="acts">
+      <a class="btn btn-open" href="${esc(l.url)}" target="_blank" rel="noopener">Открыть</a>
+      <button class="btn btn-copy" data-copytext="${esc(l.url)}" title="Копировать ссылку">Копировать</button>
+    </div>
+  </article>`;
+}
+async function copy(t) {
+  try { await navigator.clipboard.writeText(t); return true; } catch (e) {
+    try { const a = document.createElement('textarea'); a.value = t; a.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(a); a.select(); const ok = document.execCommand('copy'); a.remove(); return ok; } catch (e2) { return false; } }
+}
+let tt; function toast(s) { const el = $('#toast'); el.textContent = s; el.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => el.classList.remove('on'), 1800); }
+document.addEventListener('click', async e => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.tab) { state.tab = b.dataset.tab; state.q = ''; $('#q').value = ''; document.querySelectorAll('.tab').forEach(x => x.setAttribute('aria-selected', x.dataset.tab === state.tab)); $('#q').placeholder = state.tab === 'sup' ? 'Поставщик или бренд: Эгиа, ООО «Грок», WENDI' : 'Например: скрипт, график, Эгиа, кешбэк'; render(); return; }
+  if (b.dataset.p !== undefined) { state.p = b.dataset.p; render(); return; }
+  if (b.dataset.s !== undefined) { state.s = b.dataset.s; render(); return; }
+  if (b.dataset.copytext !== undefined) { toast(await copy(b.dataset.copytext) ? 'Скопировано' : 'Не удалось скопировать'); return; }
+  if (b.dataset.show !== undefined) {
+    const l = LINKS[+b.dataset.show], code = document.querySelector(`[data-pass="${l.id}"]`);
+    const hidden = code.textContent.startsWith('•');
+    code.textContent = hidden ? l.pass : '••••••••'; b.textContent = hidden ? 'Скрыть' : 'Показать';
+  }
+});
+let qt; $('#q').addEventListener('input', e => { clearTimeout(qt); qt = setTimeout(() => { state.q = e.target.value; render(); }, 120); });
+renderSales();
+render();
+loadSales();
+</script>
+</body>
+</html>
